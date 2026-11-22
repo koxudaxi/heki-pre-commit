@@ -1,0 +1,25 @@
+name: Mirror
+
+# Pins each new heki release on PyPI: commits the version and pushes the tag `v<version>`, which
+# `pre-commit autoupdate` picks up.
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  mirror:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - name: Pin new heki releases
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          python3 scripts/mirror.py
+          git push origin HEAD:main --follow-tags
