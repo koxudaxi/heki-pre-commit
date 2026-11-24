@@ -37,7 +37,8 @@ def pin(version: str) -> None:
     readme.write_text(re.sub(r"rev: v[0-9.]+", f"rev: v{version}", readme.read_text()))
     subprocess.run(["git", "add", "pyproject.toml", "README.md"], check=True)
     subprocess.run(["git", "commit", "-m", f"heki {version}"], check=True)
-    subprocess.run(["git", "tag", f"v{version}"], check=True)
+    # An annotated tag: `git push --follow-tags` pushes only annotated tags.
+    subprocess.run(["git", "tag", "-a", f"v{version}", "-m", f"heki {version}"], check=True)
 
 
 def main() -> None:
