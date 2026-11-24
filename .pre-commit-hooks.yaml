@@ -1,13 +1,15 @@
 # heki installed from its wheels on PyPI (the version this repository pins in pyproject.toml), so
-# no Rust toolchain or build is needed. heki follows calls across files, so the hook checks the
-# whole project rather than the files a commit changes.
+# no Rust toolchain or build is needed. heki follows calls across files: the hook analyzes the whole
+# project and shows only the reports in the staged files or whose call chain reaches one of them
+# (`heki check --touched`). Options in `args` go before `--touched`, which takes the file names.
 - id: heki
   name: heki
   description: Check side effects and mutations across function calls
   entry: heki check
+  args: [--touched]
   language: python
   types: [python]
-  pass_filenames: false
+  pass_filenames: true
   require_serial: true
   # Warnings do not fail `heki check`, and pre-commit hides the output of a hook that passes.
   verbose: true
