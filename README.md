@@ -8,7 +8,7 @@ of this repository pins the heki release of the same version.
 ```yaml
 repos:
   - repo: https://github.com/koxudaxi/heki-pre-commit
-    rev: v0.2.5
+    rev: v0.2.6
     hooks:
       - id: heki
 ```
