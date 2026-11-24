@@ -13,8 +13,11 @@ repos:
       - id: heki
 ```
 
-The hook runs `heki check` on the whole project, because heki follows calls across files. Pass
-options with `args`, for example `args: [--select, EFF101]`. heki reads its configuration from
+The hook passes the staged Python files to `heki check --touched`. heki follows calls across files, so
+it still analyzes the whole project, but it shows and fails on only the reports in those files and the
+reports whose call chain reaches one of them, so a project with old findings can use it without a
+baseline. Options go before `--touched`, for example `args: [--select, EFF101, --touched]`. To check
+the whole project on every commit, set `args: []` and `pass_filenames: false`. heki reads its configuration from
 `[tool.heki]` in `pyproject.toml` or from `heki.toml`.
 
 `pre-commit autoupdate` moves `rev` to the newest heki release. This repository is updated
