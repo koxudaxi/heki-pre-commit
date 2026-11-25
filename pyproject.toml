@@ -1,9 +1,9 @@
 [project]
 name = "heki-pre-commit"
-version = "0.4.0"
+version = "0.5.0"
 description = "pre-commit hook for heki, installed from PyPI"
 requires-python = ">=3.10"
-dependencies = ["heki==0.4.0"]
+dependencies = ["heki==0.5.0"]
 
 [build-system]
 requires = ["setuptools>=69"]
